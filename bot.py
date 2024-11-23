@@ -21,28 +21,7 @@ async def on_ready():
 
 
 @bot.command()
-
-class Music(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-
-    @commands.command()
-    async def join(self, ctx, *, channel: discord.VoiceChannel):
-        """Joins a voice channel"""
-
-        if ctx.voice_client is not None:
-            return await ctx.voice_client.move_to(channel)
-
-        await channel.connect()
-
-    @commands.command()
-    async def play(self, ctx, *, query):
-        """Plays a file from the local filesystem"""
-
-        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(query))
-        ctx.voice_client.play(source, after=lambda e: print(f'Player error: {e}') if e else None)
-
-        await ctx.send(f'Now playing: {query}')async def add(ctx, left: int, right: int):
+async def add(ctx, left: int, right: int):
     """Adds two numbers together."""
     await ctx.send(left + right)
 
@@ -58,6 +37,10 @@ async def roll(ctx, dice: str):
 
     result = ', '.join(str(random.randint(1, limit)) for r in range(rolls))
     await ctx.send(result)
+@bot.command()
+async def meme(ctx):
+    ak = random.randint(0,4)
+    await ctx.send("Here is a meme", file=discord.File("Programlama{pa}.jpeg".format(pa=str(ak))))
 
 
 @bot.command(description='For when you wanna settle the score some other way')
